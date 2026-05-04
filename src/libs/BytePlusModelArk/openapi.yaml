@@ -1,0 +1,121 @@
+openapi: 3.0.3
+info:
+  title: BytePlus ModelArk Image API
+  version: 1.0.0
+  description: Manual OpenAPI specification for BytePlus ModelArk image generation based on the official Seedream image generation documentation.
+servers:
+  - url: https://ark.ap-southeast.bytepluses.com/api/v3
+    description: BytePlus ModelArk Singapore endpoint. Override the base URI for other regions.
+security:
+  - BearerAuth: []
+paths:
+  /images/generations:
+    post:
+      operationId: createImageGeneration
+      tags:
+        - Images
+      summary: Create an image generation request.
+      description: Generates images with BytePlus ModelArk image models such as Seedream 4.x and Seedream 5.x.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImageGenerationRequest'
+      responses:
+        '200':
+          description: Generated image response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageGenerationResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '429':
+          $ref: '#/components/responses/ErrorResponse'
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+  responses:
+    ErrorResponse:
+      description: ModelArk API error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    ImageGenerationRequest:
+      type: object
+      required:
+        - model
+        - prompt
+      additionalProperties: true
+      properties:
+        model:
+          type: string
+          description: Model ID, for example seedream-5-0-260128.
+        prompt:
+          type: string
+        size:
+          type: string
+          description: Output size such as 1K, 2K, or a model-supported resolution.
+        response_format:
+          type: string
+          enum:
+            - url
+            - b64_json
+        watermark:
+          type: boolean
+        sequential_image_generation:
+          type: string
+          description: Optional sequential image generation mode.
+        stream:
+          type: boolean
+        seed:
+          type: integer
+        image:
+          description: Reference image input accepted by supported image editing models.
+          oneOf:
+            - type: string
+            - type: array
+              items:
+                type: string
+    ImageGenerationResponse:
+      type: object
+      additionalProperties: true
+      properties:
+        created:
+          type: integer
+          format: int64
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImageData'
+        error:
+          $ref: '#/components/schemas/Error'
+    ImageData:
+      type: object
+      additionalProperties: true
+      properties:
+        url:
+          type: string
+        b64_json:
+          type: string
+        revised_prompt:
+          type: string
+    Error:
+      type: object
+      additionalProperties: true
+      properties:
+        message:
+          type: string
+        type:
+          type: string
+        code:
+          type: string
+        param:
+          type: string
