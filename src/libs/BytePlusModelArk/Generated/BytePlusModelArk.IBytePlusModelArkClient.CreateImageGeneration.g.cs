@@ -21,6 +21,19 @@ namespace BytePlusModelArk
         /// Create an image generation request.<br/>
         /// Generates images with BytePlus ModelArk image models such as Seedream 4.x and Seedream 5.x.
         /// </summary>
+        /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::BytePlusModelArk.ApiException"></exception>
+        global::System.Threading.Tasks.Task<global::BytePlusModelArk.AutoSDKHttpResponse<global::BytePlusModelArk.ImageGenerationResponse>> CreateImageGenerationAsResponseAsync(
+
+            global::BytePlusModelArk.ImageGenerationRequest request,
+            global::BytePlusModelArk.AutoSDKRequestOptions? requestOptions = default,
+            global::System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Create an image generation request.<br/>
+        /// Generates images with BytePlus ModelArk image models such as Seedream 4.x and Seedream 5.x.
+        /// </summary>
         /// <param name="model">
         /// Model ID, for example seedream-5-0-260128.
         /// </param>
