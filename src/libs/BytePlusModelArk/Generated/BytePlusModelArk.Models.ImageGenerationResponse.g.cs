@@ -57,5 +57,6 @@ namespace BytePlusModelArk
         public ImageGenerationResponse()
         {
         }
+
     }
 }

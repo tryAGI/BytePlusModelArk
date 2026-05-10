@@ -123,5 +123,6 @@ namespace BytePlusModelArk
         public ImageGenerationRequest()
         {
         }
+
     }
 }
