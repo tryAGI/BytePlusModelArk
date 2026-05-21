@@ -55,6 +55,29 @@ namespace BytePlusModelArk
             global::BytePlusModelArk.AutoSDKRequestOptions? requestOptions = default,
             global::System.Threading.CancellationToken cancellationToken = default)
         {
+            var __response = await CreateImageGenerationAsResponseAsync(
+
+                request: request,
+                requestOptions: requestOptions,
+                cancellationToken: cancellationToken
+            ).ConfigureAwait(false);
+
+            return __response.Body;
+        }
+        /// <summary>
+        /// Create an image generation request.<br/>
+        /// Generates images with BytePlus ModelArk image models such as Seedream 4.x and Seedream 5.x.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::BytePlusModelArk.ApiException"></exception>
+        public async global::System.Threading.Tasks.Task<global::BytePlusModelArk.AutoSDKHttpResponse<global::BytePlusModelArk.ImageGenerationResponse>> CreateImageGenerationAsResponseAsync(
+
+            global::BytePlusModelArk.ImageGenerationRequest request,
+            global::BytePlusModelArk.AutoSDKRequestOptions? requestOptions = default,
+            global::System.Threading.CancellationToken cancellationToken = default)
+        {
             request = request ?? throw new global::System.ArgumentNullException(nameof(request));
 
             PrepareArguments(
@@ -81,10 +104,11 @@ namespace BytePlusModelArk
             var __maxAttempts = global::BytePlusModelArk.AutoSDKRequestOptionsSupport.GetMaxAttempts(
                 clientOptions: Options,
                 requestOptions: requestOptions,
-                supportsRetry: true);
+                supportsRetry: false);
 
             global::System.Net.Http.HttpRequestMessage __CreateHttpRequest()
             {
+
                             var __pathBuilder = new global::BytePlusModelArk.PathBuilder(
                                 path: "/images/generations",
                                 baseUri: HttpClient.BaseAddress);
@@ -164,6 +188,8 @@ namespace BytePlusModelArk
                                 attempt: __attempt,
                                 maxAttempts: __maxAttempts,
                                 willRetry: false,
+                                retryDelay: null,
+                                retryReason: global::System.String.Empty,
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                     try
                     {
@@ -174,6 +200,11 @@ namespace BytePlusModelArk
                     }
                     catch (global::System.Net.Http.HttpRequestException __exception)
                     {
+                        var __retryDelay = global::BytePlusModelArk.AutoSDKRequestOptionsSupport.GetRetryDelay(
+                            clientOptions: Options,
+                            requestOptions: requestOptions,
+                            response: null,
+                            attempt: __attempt);
                         var __willRetry = __attempt < __maxAttempts && !__effectiveCancellationToken.IsCancellationRequested;
                         await global::BytePlusModelArk.AutoSDKRequestOptionsSupport.OnAfterErrorAsync(
                             clientOptions: Options,
@@ -191,6 +222,8 @@ namespace BytePlusModelArk
                                 attempt: __attempt,
                                 maxAttempts: __maxAttempts,
                                 willRetry: __willRetry,
+                                retryDelay: __willRetry ? __retryDelay : (global::System.TimeSpan?)null,
+                                retryReason: "exception",
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                         if (!__willRetry)
                         {
@@ -200,8 +233,7 @@ namespace BytePlusModelArk
                         __httpRequest.Dispose();
                         __httpRequest = null;
                         await global::BytePlusModelArk.AutoSDKRequestOptionsSupport.DelayBeforeRetryAsync(
-                            clientOptions: Options,
-                            requestOptions: requestOptions,
+                            retryDelay: __retryDelay,
                             cancellationToken: __effectiveCancellationToken).ConfigureAwait(false);
                         continue;
                     }
@@ -210,6 +242,11 @@ namespace BytePlusModelArk
                         __attempt < __maxAttempts &&
                         global::BytePlusModelArk.AutoSDKRequestOptionsSupport.ShouldRetryStatusCode(__response.StatusCode))
                     {
+                        var __retryDelay = global::BytePlusModelArk.AutoSDKRequestOptionsSupport.GetRetryDelay(
+                            clientOptions: Options,
+                            requestOptions: requestOptions,
+                            response: __response,
+                            attempt: __attempt);
                         await global::BytePlusModelArk.AutoSDKRequestOptionsSupport.OnAfterErrorAsync(
                             clientOptions: Options,
                             context: global::BytePlusModelArk.AutoSDKRequestOptionsSupport.CreateHookContext(
@@ -226,14 +263,15 @@ namespace BytePlusModelArk
                                 attempt: __attempt,
                                 maxAttempts: __maxAttempts,
                                 willRetry: true,
+                                retryDelay: __retryDelay,
+                                retryReason: "status:" + ((int)__response.StatusCode).ToString(global::System.Globalization.CultureInfo.InvariantCulture),
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                         __response.Dispose();
                         __response = null;
                         __httpRequest.Dispose();
                         __httpRequest = null;
                         await global::BytePlusModelArk.AutoSDKRequestOptionsSupport.DelayBeforeRetryAsync(
-                            clientOptions: Options,
-                            requestOptions: requestOptions,
+                            retryDelay: __retryDelay,
                             cancellationToken: __effectiveCancellationToken).ConfigureAwait(false);
                         continue;
                     }
@@ -273,6 +311,8 @@ namespace BytePlusModelArk
                                 attempt: __attemptNumber,
                                 maxAttempts: __maxAttempts,
                                 willRetry: false,
+                                retryDelay: null,
+                                retryReason: global::System.String.Empty,
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                 }
                 else
@@ -293,6 +333,8 @@ namespace BytePlusModelArk
                                 attempt: __attemptNumber,
                                 maxAttempts: __maxAttempts,
                                 willRetry: false,
+                                retryDelay: null,
+                                retryReason: global::System.String.Empty,
                                 cancellationToken: __effectiveCancellationToken)).ConfigureAwait(false);
                 }
                             // ModelArk API error.
@@ -431,9 +473,13 @@ namespace BytePlusModelArk
                                 {
                                     __response.EnsureSuccessStatusCode();
 
-                                    return
-                                        global::BytePlusModelArk.ImageGenerationResponse.FromJson(__content, JsonSerializerContext) ??
+                                    var __value = global::BytePlusModelArk.ImageGenerationResponse.FromJson(__content, JsonSerializerContext) ??
                                         throw new global::System.InvalidOperationException($"Response deserialization failed for \"{__content}\" ");
+                                    return new global::BytePlusModelArk.AutoSDKHttpResponse<global::BytePlusModelArk.ImageGenerationResponse>(
+                                        statusCode: __response.StatusCode,
+                                        headers: global::BytePlusModelArk.AutoSDKHttpResponse.CreateHeaders(__response),
+                                        requestUri: __response.RequestMessage?.RequestUri,
+                                        body: __value);
                                 }
                                 catch (global::System.Exception __ex)
                                 {
@@ -461,9 +507,13 @@ namespace BytePlusModelArk
                 #endif
                                     ).ConfigureAwait(false);
 
-                                    return
-                                        await global::BytePlusModelArk.ImageGenerationResponse.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
+                                    var __value = await global::BytePlusModelArk.ImageGenerationResponse.FromJsonStreamAsync(__content, JsonSerializerContext).ConfigureAwait(false) ??
                                         throw new global::System.InvalidOperationException("Response deserialization failed.");
+                                    return new global::BytePlusModelArk.AutoSDKHttpResponse<global::BytePlusModelArk.ImageGenerationResponse>(
+                                        statusCode: __response.StatusCode,
+                                        headers: global::BytePlusModelArk.AutoSDKHttpResponse.CreateHeaders(__response),
+                                        requestUri: __response.RequestMessage?.RequestUri,
+                                        body: __value);
                                 }
                                 catch (global::System.Exception __ex)
                                 {
