@@ -10,3 +10,20 @@ autosdk generate openapi.yaml \
   --output Generated \
   --security-scheme Http:Header:Bearer \
   --exclude-deprecated-operations
+
+rm -rf ../../cli/BytePlusModelArk.CLI
+
+autosdk cli-project openapi.yaml \
+  --output ../../cli/BytePlusModelArk.CLI \
+  --sdk-project ../../libs/BytePlusModelArk/BytePlusModelArk.csproj \
+  --targetFramework net10.0 \
+  --namespace BytePlusModelArk \
+  --clientClassName BytePlusModelArkClient \
+  --package-id BytePlusModelArk.CLI \
+  --tool-command-name byte-plus-model-ark \
+  --user-secrets-id BytePlusModelArk.CLI \
+  --api-key-env-var BYTEPLUSMODELARK_API_KEY \
+  --base-url-env-var BYTEPLUSMODELARK_BASE_URL \
+  --cli-credential-file \
+  --exclude-deprecated-operations \
+  --security-scheme Http:Header:Bearer

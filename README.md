@@ -40,6 +40,13 @@ using BytePlusModelArk;
 using var client = new BytePlusModelArkClient(apiKey);
 ```
 
+### CLI
+
+```bash
+dotnet tool install --global BytePlusModelArk.CLI --prerelease
+byte-plus-model-ark api --help
+```
+
 <!-- EXAMPLES:START -->
 ### Generate Seedream image
 Generate an image with a BytePlus ModelArk Seedream model.
