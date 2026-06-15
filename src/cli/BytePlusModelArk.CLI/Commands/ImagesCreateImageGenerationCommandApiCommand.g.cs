@@ -135,13 +135,13 @@ Generates images with BytePlus ModelArk image models such as Seedream 4.x and Se
                             cancellationToken).ConfigureAwait(false);
                         var model = parseResult.GetRequiredValue(Model);
                         var prompt = parseResult.GetRequiredValue(Prompt);
-                        var size = CliRuntime.WasSpecified(parseResult, Size) ? parseResult.GetValue(Size) : __requestBase is not null ? __requestBase.Size : default;
-                        var responseFormat = CliRuntime.WasSpecified(parseResult, ResponseFormat) ? parseResult.GetValue(ResponseFormat) : __requestBase is not null ? __requestBase.ResponseFormat : default;
-                        var watermark = CliRuntime.WasSpecified(parseResult, Watermark) ? parseResult.GetValue(Watermark) : __requestBase is not null ? __requestBase.Watermark : default;
-                        var sequentialImageGeneration = CliRuntime.WasSpecified(parseResult, SequentialImageGeneration) ? parseResult.GetValue(SequentialImageGeneration) : __requestBase is not null ? __requestBase.SequentialImageGeneration : default;
-                        var stream = CliRuntime.WasSpecified(parseResult, Stream) ? parseResult.GetValue(Stream) : __requestBase is not null ? __requestBase.Stream : default;
-                        var seed = CliRuntime.WasSpecified(parseResult, Seed) ? parseResult.GetValue(Seed) : __requestBase is not null ? __requestBase.Seed : default;
-                        var image = CliRuntime.WasSpecified(parseResult, Image) ? parseResult.GetValue(Image) : __requestBase is not null ? __requestBase.Image : default;
+                        var size = CliRuntime.WasSpecified(parseResult, Size) ? parseResult.GetValue(Size) : (__requestBase is { } __SizeBaseValue ? __SizeBaseValue.Size : default);
+                        var responseFormat = CliRuntime.WasSpecified(parseResult, ResponseFormat) ? parseResult.GetValue(ResponseFormat) : (__requestBase is { } __ResponseFormatBaseValue ? __ResponseFormatBaseValue.ResponseFormat : default);
+                        var watermark = CliRuntime.WasSpecified(parseResult, Watermark) ? parseResult.GetValue(Watermark) : (__requestBase is { } __WatermarkBaseValue ? __WatermarkBaseValue.Watermark : default);
+                        var sequentialImageGeneration = CliRuntime.WasSpecified(parseResult, SequentialImageGeneration) ? parseResult.GetValue(SequentialImageGeneration) : (__requestBase is { } __SequentialImageGenerationBaseValue ? __SequentialImageGenerationBaseValue.SequentialImageGeneration : default);
+                        var stream = CliRuntime.WasSpecified(parseResult, Stream) ? parseResult.GetValue(Stream) : (__requestBase is { } __StreamBaseValue ? __StreamBaseValue.Stream : default);
+                        var seed = CliRuntime.WasSpecified(parseResult, Seed) ? parseResult.GetValue(Seed) : (__requestBase is { } __SeedBaseValue ? __SeedBaseValue.Seed : default);
+                        var image = CliRuntime.WasSpecified(parseResult, Image) ? parseResult.GetValue(Image) : (__requestBase is { } __ImageBaseValue ? __ImageBaseValue.Image : default);
                 using var client = await CliRuntime.CreateClientAsync(parseResult, cancellationToken).ConfigureAwait(false);
 
 
