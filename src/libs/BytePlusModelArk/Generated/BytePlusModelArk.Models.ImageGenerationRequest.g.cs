@@ -4,7 +4,7 @@
 namespace BytePlusModelArk
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class ImageGenerationRequest
     {
@@ -16,7 +16,7 @@ namespace BytePlusModelArk
         public required string Model { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("prompt")]
         [global::System.Text.Json.Serialization.JsonRequired]
@@ -29,14 +29,14 @@ namespace BytePlusModelArk
         public string? Size { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("response_format")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::BytePlusModelArk.JsonConverters.ImageGenerationRequestResponseFormatJsonConverter))]
         public global::BytePlusModelArk.ImageGenerationRequestResponseFormat? ResponseFormat { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("watermark")]
         public bool? Watermark { get; set; }
@@ -48,13 +48,13 @@ namespace BytePlusModelArk
         public string? SequentialImageGeneration { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("stream")]
         public bool? Stream { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("seed")]
         public int? Seed { get; set; }
