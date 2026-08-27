@@ -4,24 +4,24 @@
 namespace BytePlusModelArk
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class ImageData
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("url")]
         public string? Url { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("b64_json")]
         public string? B64Json { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("revised_prompt")]
         public string? RevisedPrompt { get; set; }

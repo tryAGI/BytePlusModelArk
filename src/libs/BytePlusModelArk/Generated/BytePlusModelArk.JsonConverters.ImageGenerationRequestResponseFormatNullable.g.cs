@@ -20,7 +20,7 @@ namespace BytePlusModelArk.JsonConverters
                     {
                         return global::BytePlusModelArk.ImageGenerationRequestResponseFormatExtensions.ToEnum(stringValue);
                     }
-                    
+
                     break;
                 }
                 case global::System.Text.Json.JsonTokenType.Number:

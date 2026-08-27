@@ -4,24 +4,24 @@
 namespace BytePlusModelArk
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class ImageGenerationResponse
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("created")]
         public long? Created { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("data")]
         public global::System.Collections.Generic.IList<global::BytePlusModelArk.ImageData>? Data { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("error")]
         public global::BytePlusModelArk.Error? Error { get; set; }

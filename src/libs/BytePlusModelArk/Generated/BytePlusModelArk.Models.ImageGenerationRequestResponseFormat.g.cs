@@ -4,16 +4,16 @@
 namespace BytePlusModelArk
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum ImageGenerationRequestResponseFormat
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         B64Json,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Url,
     }
