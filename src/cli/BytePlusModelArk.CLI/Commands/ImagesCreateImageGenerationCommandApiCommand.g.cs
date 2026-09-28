@@ -95,6 +95,8 @@ internal static partial class ImagesCreateImageGenerationCommandApiCommand
                     static partial void CustomizeResponseFormatHints(Dictionary<string, CliFormatHint> hints);
 
 
+    static partial void CustomizeCommand(ref Command command);
+
     public static Command Create()
     {
         var command = new Command(@"create-image-generation", @"Create an image generation request.
@@ -173,6 +175,7 @@ Generates images with BytePlus ModelArk image models such as Seedream 4.x and Se
                                     cancellationToken).ConfigureAwait(false);
                                 }
             }, cancellationToken).ConfigureAwait(false));
+        CustomizeCommand(ref command);
         return command;
     }
 }
