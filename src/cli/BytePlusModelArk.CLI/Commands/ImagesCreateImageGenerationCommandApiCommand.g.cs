@@ -97,9 +97,9 @@ internal static partial class ImagesCreateImageGenerationCommandApiCommand
 
     static partial void CustomizeCommand(ref Command command);
 
-    public static Command Create()
+    public static Command Create(string? commandName = null)
     {
-        var command = new Command(@"create-image-generation", @"Create an image generation request.
+        var command = new Command(commandName ?? @"create-image-generation", @"Create an image generation request.
 Generates images with BytePlus ModelArk image models such as Seedream 4.x and Seedream 5.x.");
                         command.Options.Add(Model);
                         command.Options.Add(Prompt);
