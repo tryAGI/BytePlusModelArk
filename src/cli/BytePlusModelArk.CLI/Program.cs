@@ -12,5 +12,6 @@ rootCommand.Options.Add(CliOptions.Output);
 rootCommand.Options.Add(CliOptions.OutputDirectory);
 rootCommand.Subcommands.Add(AuthCommand.Create());
 rootCommand.Subcommands.Add(ImagesApiGroupCommand.Create());
+rootCommand.Subcommands.Add(CliCompletion.CreateCommand(rootCommand, @"byte-plus-model-ark"));
 
 return await rootCommand.Parse(args).InvokeAsync().ConfigureAwait(false);
