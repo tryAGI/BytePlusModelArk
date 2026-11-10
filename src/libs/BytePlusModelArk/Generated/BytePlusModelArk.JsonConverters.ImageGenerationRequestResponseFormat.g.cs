@@ -18,7 +18,7 @@ namespace BytePlusModelArk.JsonConverters
                     var stringValue = reader.GetString();
                     if (stringValue != null)
                     {
-                        return global::BytePlusModelArk.ImageGenerationRequestResponseFormatExtensions.ToEnum(stringValue) ?? default;
+                        return global::BytePlusModelArk.ImageGenerationRequestResponseFormatExtensions.ToEnum(stringValue) ?? throw new global::System.Text.Json.JsonException($"Unknown value '{stringValue}' for global::BytePlusModelArk.ImageGenerationRequestResponseFormat.");
                     }
 
                     break;
